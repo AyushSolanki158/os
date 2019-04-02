@@ -1,0 +1,92 @@
+
+package classabc;
+import java.util.Scanner;
+
+public class ProducerConsumer {
+     int mutex=1,E=0,F=0,c=0;
+     public void producer(ProducerConsumer s){
+         s.mutex = Wait(s.mutex);
+         s.F = Signal(s.F);
+        s. E = Wait(s.E);
+         c++;
+         System.out.println("Producer is producing at " + c);
+         mutex = Signal(s.mutex);
+     }
+     
+     public void consumer(ProducerConsumer s){
+        s. mutex = Wait(s.mutex);
+        s. E = Signal(s.E);
+         s.F = Wait(s.F);
+         
+         System.out.println("Consumer is consuming at " + c);
+         c--;
+         s.mutex = Signal(s.mutex);
+     }
+    public int Wait(int u){
+         return --u;
+     }
+   public int Signal(int y){
+             return ++y;
+          }
+   public static void main(String h[]){
+   
+   
+ProducerConsumer s = new ProducerConsumer();
+ s.mutex=1;s.E=10;s.F=0;s.c=0;
+         Scanner sc = new Scanner(System.in);
+         while(true){
+             System.out.println("1.Producer \n2.Consumer \n3. Exit");
+             System.out.print("Enter your choice : ");
+             int i = sc.nextInt();
+             switch(i)
+             {
+                 case 1: if(s.mutex == 1 && s.E!=0)
+                         s. producer(s);
+                        else
+                         System.out.println("Producer is waiting.");
+                 
+                break;
+                 case 2 : if (s.mutex == 1 && s.F!=0)
+                     s.consumer(s);
+                     else 
+                     System.out.println("Consumer is waiting.");
+                     break;
+                 case 3:
+                     System.exit(0);
+         
+         }
+     }
+     }
+     
+     
+OUTPUT:
+run:
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 1
+Producer is producing at 1
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 2
+Consumer is consuming at 1
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 2
+Consumer is waiting.
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 2
+Consumer is waiting.
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 1
+Producer is producing at 1
+1.Producer 
+2.Consumer 
+3. Exit
+Enter your choice : 
